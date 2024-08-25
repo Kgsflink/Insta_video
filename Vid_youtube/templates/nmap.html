@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>README Viewer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+        pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            overflow: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>README Viewer</h1>
+        <div id="readme-content"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('README.md')
+                .then(response => response.text())
+                .then(text => {
+                    const readmeContent = document.getElementById('readme-content');
+                    readmeContent.innerHTML = `<pre>${text}</pre>`;
+                })
+                .catch(error => {
+                    console.error('Error fetching README:', error);
+                    const readmeContent = document.getElementById('readme-content');
+                    readmeContent.innerHTML = `<p>Error fetching README.md. Please try again later.</p>`;
+                });
+        });
+    </script>
+</body>
+</html>
