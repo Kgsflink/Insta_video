@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Kgsflink</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+     <span class="material-symbols-outlined">
+menu
+</span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav" id="navList">
+        <li class="nav-item">
+          <a class="nav-link" href="#">Instant Tutorial</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">YouTube Tutorial</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div class="container text-center mt-5">
+    <h1 id="welcomeMsg">Welcome to your App!</h1>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const navList = document.getElementById("navList");
+
+      // Check if the user is logged in
+      const logged_in = sessionStorage.getItem("email");
+
+      // Update welcome message
+      const welcomeMsg = document.getElementById("welcomeMsg");
+      if (logged_in) {
+        const userEmail = sessionStorage.getItem("email");
+        const userName = sessionStorage.getItem("name");
+        welcomeMsg.innerText = `Welcome back, ${userName} (${userEmail})!`;
+      }
+
+      // Dynamically update navigation links
+      if (logged_in) {
+        // User is logged in, add Logout link
+        const logoutItem = document.createElement("li");
+        logoutItem.classList.add("nav-item");
+        logoutItem.innerHTML = '<a class="nav-link" href="#" onclick="logout()">Logout</a>';
+        navList.appendChild(logoutItem);
+      } else {
+        // User is not logged in, add Login and Sign Up links
+        const loginItem = document.createElement("li");
+        loginItem.classList.add("nav-item");
+        loginItem.innerHTML = '<a class="nav-link" href="login.html">Login</a>';
+        navList.appendChild(loginItem);
+
+        const signupItem = document.createElement("li");
+        signupItem.classList.add("nav-item");
+        signupItem.innerHTML = '<a class="nav-link" href="signup.html">Sign Up</a>';
+        navList.appendChild(signupItem);
+      }
+    });
+
+    // Function to logout
+    function logout() {
+      sessionStorage.removeItem("email");
+      sessionStorage.removeItem("name");
+      window.location.href = "index.html";
+    }
+  </script>
+</body>
+</html>
