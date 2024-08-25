@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Your App Name</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav" id="navList">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Instant Tutorial</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">YouTube Tutorial</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container text-center mt-5">
+        <h1 id="welcomeMsg">Welcome to your App!</h1>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const navList = document.getElementById("navList");
+
+            // Check if the user is logged in
+            const logged_in = sessionStorage.getItem("email");
+
+            // Update welcome message
+            const welcomeMsg = document.getElementById("welcomeMsg");
+            if (logged_in) {
+                const userEmail = sessionStorage.getItem("email");
+                const userName = sessionStorage.getItem("name");
+                welcomeMsg.innerText = `Welcome back, ${userName} (${userEmail})!`;
+            }
+
+            // Dynamically update navigation links
+            if (logged_in) {
+                // User is logged in, add Logout link
+                const logoutItem = document.createElement("li");
+                logoutItem.classList.add("nav-item");
+                logoutItem.innerHTML = '<a class="nav-link" href="#" onclick="logout()">Logout</a>';
+                navList.appendChild(logoutItem);
+            } else {
+                // User is not logged in, add Login and Sign Up links
+                const loginItem = document.createElement("li");
+                loginItem.classList.add("nav-item");
+                loginItem.innerHTML = '<a class="nav-link" href="login.html">Login</a>';
+                navList.appendChild(loginItem);
+
+                const signupItem = document.createElement("li");
+                signupItem.classList.add("nav-item");
+                signupItem.innerHTML = '<a class="nav-link" href="signup.html">Sign Up</a>';
+                navList.appendChild(signupItem);
+            }
+        });
+
+        // Function to logout
+        function logout() {
+            sessionStorage.removeItem("email");
+            sessionStorage.removeItem("name");
+            window.location.href = "index.html";
+        }
+    </script>
+</body>
+</html>
